@@ -1,10 +1,10 @@
 package com.fullcycle.admin.domain.catalog;
 
 import java.time.Instant;
-import java.util.UUID;
 
-public class Category {
-    private String id;
+import com.fullcycle.admin.domain.AggregateRoot;
+
+public class Category extends AggregateRoot<CategoryID>{
     private String name;
     private String description;
     private boolean active;
@@ -13,7 +13,7 @@ public class Category {
     private Instant deletedAt;
 
     
-    public String getId() {
+    public CategoryID getId() {
         return id;
     }
 
@@ -49,7 +49,7 @@ public class Category {
 
 
     private Category(
-        final String id, 
+        final CategoryID id, 
         final String name, 
         final String description, 
         final boolean active, 
@@ -57,7 +57,7 @@ public class Category {
         final Instant updatedAt,
         final Instant deletedAt
     ) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.description = description;
         this.active = active;
@@ -72,7 +72,7 @@ public class Category {
         final String description,
         final boolean isActive
     ) {
-        var id = UUID.randomUUID().toString();
+        var id = CategoryID.unique();
         return new Category(
             id,
             name,
