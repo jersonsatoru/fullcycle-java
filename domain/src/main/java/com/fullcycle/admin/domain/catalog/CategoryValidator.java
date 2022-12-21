@@ -15,8 +15,31 @@ public class CategoryValidator extends Validator {
 
     @Override
     public void validate() {
+        this.checkNameConstraints();
+        this.checkDescriptionConstraints();
+    }
+
+    private void checkNameConstraints() {
         if (this.category.getName() == null) {
             this.validationHandler().append(new Error("'name' must not be null"));
+        }
+        if (this.category.getName().isBlank()) {
+            this.validationHandler().append(new Error("'name' must not be empty"));
+        }
+        if (this.category.getName().length() > 255 || this.category.getName().length() < 3) {
+            this.validationHandler().append(new Error("'name' must be greater than or equals than 3 or less than or equals 255"));
+        }
+    }
+
+    private void checkDescriptionConstraints() {
+        if (this.category.getDescription() == null) {
+            this.validationHandler().append(new Error("'description' must not be null"));
+        }
+        if (this.category.getDescription().isBlank()) {
+            this.validationHandler().append(new Error("'description' must not be empty"));
+        }
+        if (this.category.getDescription().length() > 255 || this.category.getDescription().length() < 3) {
+            this.validationHandler().append(new Error("'description' must be greater than or equals than 3 or less than or equals 255"));
         }
     }
 }

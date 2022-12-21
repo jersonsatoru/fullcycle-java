@@ -11,7 +11,6 @@ public class Category extends AggregateRoot<CategoryID>{
     private Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
-
     
     public CategoryID getId() {
         return id;
