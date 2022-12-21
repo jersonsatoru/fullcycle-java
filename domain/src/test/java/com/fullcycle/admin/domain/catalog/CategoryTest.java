@@ -9,6 +9,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.fullcycle.admin.domain.exceptions.DomainException;
+import com.fullcycle.admin.domain.validation.handler.ThrowsValidationHandler;
+
 public class CategoryTest {
     
     @Test
@@ -33,13 +36,13 @@ public class CategoryTest {
         final String expectedDescription = "A categoria mais assistida";
         final boolean expectedIsActive = true;
 
-        final var expectedErrorMessages = List.of("'name' should not be null");
+        final var expectedErrorMessages = "'name' must not be null";
         final var expectedErrorCount = 1;
 
         final var category = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
         
-        final var actualException = assertThrows(DomainException.class, () -> category.validate());
-        assertEquals(expectedErrorsount ,actualException.getErrors().size(), null);
-        assertEquals(expectedErrorMessages ,actualException.getErrors().first().getMessage(), null);
+        final var actualException = assertThrows(DomainException.class, () -> category.validate(new ThrowsValidationHandler()));
+        assertEquals(expectedErrorCount, actualException.getErrors().size());
+        assertEquals(expectedErrorMessages, actualException.getErrors().get(0).message());
     }
 }

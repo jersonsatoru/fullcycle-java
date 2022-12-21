@@ -2,6 +2,8 @@ package com.fullcycle.admin.domain;
 
 import java.util.Objects;
 
+import com.fullcycle.admin.domain.validation.ValidationHandler;
+
 public abstract class Entity<ID extends Identifier> {
     protected final ID id;
 
@@ -13,6 +15,8 @@ public abstract class Entity<ID extends Identifier> {
         Objects.requireNonNull(id, "Must be not null");
         this.id = id;
     }
+
+    public abstract void validate(ValidationHandler validator);
 
     @Override
     public int hashCode() {
