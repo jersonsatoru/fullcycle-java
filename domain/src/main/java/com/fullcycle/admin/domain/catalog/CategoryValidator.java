@@ -6,6 +6,8 @@ import com.fullcycle.admin.domain.validation.Error;
 
 public class CategoryValidator extends Validator {
 
+    private static final int MIN_LENGTH = 3;
+    private static final int MAX_LENGTH = 255;
     private final Category category;
 
     public CategoryValidator(final Category category, final ValidationHandler handler) {
@@ -26,7 +28,7 @@ public class CategoryValidator extends Validator {
         if (this.category.getName().isBlank()) {
             this.validationHandler().append(new Error("'name' must not be empty"));
         }
-        if (this.category.getName().length() > 255 || this.category.getName().length() < 3) {
+        if (this.category.getName().length() > MAX_LENGTH || this.category.getName().length() < MIN_LENGTH) {
             this.validationHandler().append(new Error("'name' must be greater than or equals than 3 or less than or equals 255"));
         }
     }
@@ -38,7 +40,7 @@ public class CategoryValidator extends Validator {
         if (this.category.getDescription().isBlank()) {
             this.validationHandler().append(new Error("'description' must not be empty"));
         }
-        if (this.category.getDescription().length() > 255 || this.category.getDescription().length() < 3) {
+        if (this.category.getDescription().length() > MAX_LENGTH || this.category.getDescription().length() < MIN_LENGTH) {
             this.validationHandler().append(new Error("'description' must be greater than or equals than 3 or less than or equals 255"));
         }
     }
